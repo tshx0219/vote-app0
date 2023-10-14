@@ -1,10 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Build result') {
-            when {
-                changeset "**/result/*.*"
-            }
+        stage('Build with result') {
             agent {
                 kubernetes {
                     defaultContainer 'kaniko'
@@ -56,11 +53,12 @@ spec:
                 }
             }
         }
-
-        stage('Build vote') {
+        stage('Build with vote') {
+            // 这段 Demo4 才需要，Demo1 不演示，突出 Git 提交全部都会触发的特性
             when {
                 changeset "**/vote/*.*"
             }
+            // 这段 Demo4 才需要
             agent {
                 kubernetes {
                     defaultContainer 'kaniko'
@@ -112,11 +110,12 @@ spec:
                 }
             }
         }
-
-        stage('Build worker') {
+        stage('Build with worker') {
+            // 这段 Demo4 才需要，Demo1 不演示，突出 Git 提交全部都会触发的特性
             when {
                 changeset "**/worker/*.*"
             }
+            // 这段 Demo4 才需要
             agent {
                 kubernetes {
                     defaultContainer 'kaniko'

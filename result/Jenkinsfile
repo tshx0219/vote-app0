@@ -1,6 +1,7 @@
 pipeline {
     agent none
     stages {
+
         stage('Scan Code with Sonarqube') {
             when {
                 changeset "**/result/**"
@@ -44,7 +45,11 @@ spec:
                 }
             }
         }
+
         stage('Build with Kaniko') {
+            when {
+                changeset "**/result/*.*"
+            }
             agent {
                 kubernetes {
                     defaultContainer 'kaniko'
